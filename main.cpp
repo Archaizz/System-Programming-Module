@@ -35,7 +35,7 @@ Student(string A, string B, vector<int>C, int D)
 };
 void res()
 {
-  result = accumulate(grade.begin(), grade.end(), 0) / grade.size() * 0.4 + exam *0.6;
+  finalResult = accumulate(grade.begin(), grade.end(), 0) / grade.size() * 0.4 + exam *0.6;
 }
 ~Student()
 {
@@ -43,12 +43,23 @@ void res()
   lastName.clear();
   grade.clear();
   exam = 0;
-  result = 0;
+  finalResult = 0;
 };
-}
+void output()
+{
+cout<< firstName <<" | "<< lastName <<" | "<< finalResult << std::endl;
+  
+};
+};
 int main()
 {
-
+  vector<Student>group;
+  for (int i = 0 ; i<5; i++)
+  {  
+    Student student1;
+    group.push_back(student1);
+  }
+  for(auto Z: group )Z.output();
   
   return 0;
 }
