@@ -3,13 +3,14 @@
 #include<vector>
 #include<numeric>
 #include<iomanip>
-
+#include <random>
 
 using std::cout;
 using std::string;
 using std::vector;
 using std::accumulate;
 using std::endl;
+
 
 
 class Student{
@@ -20,14 +21,26 @@ class Student{
     int exam;
     double finalResult;
     public:
+    
     Student()
     {
         firstName = "John";
         lastName = "Doe";
-        grade = {1,2,3,4,5,6,7,7,9,6,7,5};
+        /*grade = {1,2,3,4,5,6,7,7,9,6,7,5};
         exam = 10;
-        res();
+        res();*/
+         std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distr(1, 10);
+
+    for (int i = 0; i < 10; ++i) {
+        grade.push_back(distr(gen));
+    }
+
+    exam = distr(gen); // random exam grade too
+    res();
     };
+  
     Student(string A, string B, vector<int>C, int D)
     {
         firstName = A;
@@ -113,15 +126,19 @@ std::istream &operator>>(std::istream& in , Student& studentObj)
 int main()
 {
     vector<Student>group;
+    
     for (int i = 0 ; i<5; i++)
     {  
     Student student1;
+    
     group.push_back(student1);
     }
     for(auto Z: group )Z.output();
+    
     Student student1;
     Student student2;
     Student student3;
+
     student2=student1;
     student3=student1;
     
