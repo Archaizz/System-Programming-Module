@@ -2,6 +2,7 @@
 #include<string>
 #include<vector>
 #include<numeric>
+#include<iomanip>
 
 
 using std::cout;
@@ -21,7 +22,7 @@ Student()
 {
     firstName = "John";
     lastName = "Doe";
-    grade = {1,2,3,4,5,6,7,8,9,6,7,4};
+    grade = {1,2,3,4,5,6,7,7,9,6,7,5};
     exam = 10;
     res();
 };
@@ -50,6 +51,7 @@ Student& operator= (const Student& studentObj)
     res();
     return *this;
 };
+
 void res()
 {
     finalResult = accumulate(grade.begin(), grade.end(), 0) / grade.size() * 0.4 + exam *0.6;
@@ -64,11 +66,23 @@ void res()
 };
 void output()
 {
-    cout<< firstName <<" | "<< lastName <<" | "<< finalResult << std::endl;
+    cout<< firstName <<" | "<< lastName <<" | "<< std::setprecision(2) << finalResult << std::endl;
   
 };
-};
+friend std:: ostream& operator<<(std:: ostream& os ,const Student& studentObj);
+friend std:: istream& operator<<(std:: istream& is ,const Student& studentObj);
 
+};
+ ostream &operator<<( ostream& out,const Student& studentObj)
+{  
+        out<<"Name "<<studentObj.firstName<<"Last Name "<<studentObj.lastName <<"Grade "<< studentObj.grade <<"Exam "<< studentObj.exam<<"Final result "<<res()<< endl;
+        return *out;
+};
+ istream &operator>>( istream& in ,const Student& studentObj)
+{
+        in>>studentObj.firstName>>studentObj.lastName>>studentObj.grade>>studentObj.exam;
+        return *in;
+};
 int main()
 {
     vector<Student>group;
