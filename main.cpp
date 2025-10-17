@@ -4,13 +4,15 @@
 #include<numeric>
 #include<iomanip>
 #include <random>
+#include <algorithm>
+
 
 using std::cout;
 using std::string;
 using std::vector;
 using std::accumulate;
 using std::endl;
-
+using std::sort;
 
 
 class Student{
@@ -65,23 +67,23 @@ class Student{
     {
         firstName = studentObj.firstName;
         lastName = studentObj.lastName;                     //copy constructor
+        numberHomework=studentObj.numberHomework;
         grade = studentObj.grade;
         exam = studentObj.exam;
         average = studentObj.average;
         res(); 
         med();
-        numberHomework=studentObj.numberHomework;
     };
     Student& operator= (const Student& studentObj)
     {
         firstName = studentObj.firstName;
         lastName = studentObj.lastName;
+        numberHomework = studentObj.numberHomework;
         grade = studentObj.grade;                           //assignment operator
         exam = studentObj.exam;
         average = studentObj.average;
-        res(); 
+       res(); 
         med();
-        numberHomework = studentObj.numberHomework;
         return *this;
     };
 
@@ -90,7 +92,8 @@ class Student{
         finalResult = (static_cast<double>(accumulate(grade.begin(), grade.end(), 0)) / grade.size()) * 0.4 + exam * 0.6;;  //finalResult calculator if bool average is true
     }
     void med()
-    {
+    {   
+        sort(grade.begin(), grade.end());
         cout<<"median triggered "<<endl;
         numberHomework=grade.size();
         if (grade.size()%2==0){
@@ -105,9 +108,9 @@ class Student{
            int num = (grade.size()/2);
            medianResult = grade[num];}
     }
-    ~Student()
+    ~Student()                                              //deconstrucor
     {
-        firstName.clear();                                                  //deconstrucor
+        firstName.clear();                                                  
         lastName.clear();
         grade.clear();
         exam = 0;
@@ -146,11 +149,15 @@ std::ostream &operator<<(std::ostream& out,const Student& studentObj)
 };
 std::istream &operator>>(std::istream& in , Student& studentObj)
 {
-   cout << "Enter first name, last name, number of grades, then grades, and exam: ";                //overloaded cin operator
-
+   cout << "Enter first name, last name, and type 1 to input the number of homework and 0 if number is uncertain"<<endl;                //overloaded cin operator
+    bool gradeNum;
+    
     int numGrades;
-    in >> studentObj.firstName >> studentObj.lastName >> numGrades;
-
+    in >> studentObj.firstName >> studentObj.lastName >> gradeNum;
+    
+    if (gradeNum){
+    cout<<"Enter number of grades, then grades, and exam: "; 
+    in>>numGrades;
     studentObj.grade.clear();
     for (int i = 0; i < numGrades; ++i) {
         int g;
@@ -159,10 +166,35 @@ std::istream &operator>>(std::istream& in , Student& studentObj)
     }
 
     in >> studentObj.exam;
-    studentObj.res();  // Recalculate final result
-
+    cout<<"To calculate the average type 1, for the median 0: "<<endl;
+    in>>studentObj.average;
+    studentObj.res();
+    studentObj.med();
+        
+    } // Recalculate final result
+    else {
+        studentObj.grade.clear();
+        cout<<"Enter grades, when finished type -1"; 
+        int g;
+        while (g !=-1)
+        {
+             
+           
+            in >> g;
+           if (g!=-1) studentObj.grade.push_back(g);
+            
+        }
+        studentObj.res();
+        studentObj.med();
+        
+        cout<<"Enter exam grade and 1 to calculate the average, 0 for the median: "<<endl;
+        in>>studentObj.exam>>studentObj.average;
+        
+        }
     return in;
-};
+    };
+    
+
 
 int main()
 {
@@ -180,7 +212,7 @@ int main()
     //Student student2;
     //Student student3;
     Student student4;
-    //Student student5;
+    Student student5;
 
     //student2=student1;
     //student3=student1;
@@ -192,8 +224,7 @@ int main()
     student4.average=false;
     cout<<student4;
     
-   // std::cin>>student5;
-    //cout<<student5;
+    std::cin>>student5;
+    cout<<student5;
     return 0;
     }
-    
