@@ -17,6 +17,7 @@ class Student{
     public:
     string firstName;
     string lastName;
+    int numberHomework;
     vector<int>grade;
     int exam;
     double finalResult;
@@ -31,29 +32,34 @@ class Student{
         /*grade = {1,2,3,4,5,6,7,7,9,6,7,5};
         exam = 10;
         res();*/
+        numberHomework=10;
         average = true;
+        
         std::random_device rd;                          //Random number generation std based on computer hardware inbetween 1-10
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> distr(1, 10);   
 
-    for (int i = 0; i < 10; ++i) {                      //grade generation at random
+        for (int i = 0; i < 10; ++i) {                      //grade generation at random
         grade.push_back(distr(gen));
-    }
+        }
 
     exam = distr(gen);                          // random exam grade generation as well
     res(); 
     med();
     };
   
-    Student(string A, string B, vector<int>C, int D, bool E)
+    Student(string A, string B,int F, vector<int>C, int D, bool E)
     {
         firstName = A;
-        lastName = B;                                       //intended constructor
+        lastName = B;    
+        numberHomework = F;                                                        //intended constructor
         grade = C;
         exam = D;
         average = E;
-        res();
+        res(); 
         med();
+        
+       
     };
     Student(const Student& studentObj)
     {
@@ -62,8 +68,9 @@ class Student{
         grade = studentObj.grade;
         exam = studentObj.exam;
         average = studentObj.average;
-        res();
+        res(); 
         med();
+        numberHomework=studentObj.numberHomework;
     };
     Student& operator= (const Student& studentObj)
     {
@@ -72,8 +79,9 @@ class Student{
         grade = studentObj.grade;                           //assignment operator
         exam = studentObj.exam;
         average = studentObj.average;
-        res();
+        res(); 
         med();
+        numberHomework = studentObj.numberHomework;
         return *this;
     };
 
@@ -83,14 +91,18 @@ class Student{
     }
     void med()
     {
+        cout<<"median triggered "<<endl;
+        numberHomework=grade.size();
         if (grade.size()%2==0){
+            
             int num2 =(grade.size()/2) ;  
             int num1 = (grade.size()/2)-1 ;                                 //if bool average is not true calculates the median based on if its divisible by 2
-                  
-            medianResult = (static_cast<double>(grade[num1]+grade[num2])/2);
+                  cout<<"even grades  "<<grade.size()<<endl;
+            medianResult = (grade[num1]+grade[num2])/2;
         }
        else { 
-           int num = grade.size()/2;
+            cout<<"odd grades  "<<grade.size()<<endl;
+           int num = (grade.size()/2);
            medianResult = grade[num];}
     }
     ~Student()
@@ -147,36 +159,41 @@ std::istream &operator>>(std::istream& in , Student& studentObj)
     }
 
     in >> studentObj.exam;
-    studentObj.res();  // recalculate final result
+    studentObj.res();  // Recalculate final result
 
     return in;
 };
 
 int main()
 {
-    vector<Student>group;
+    /*vector<Student>group;
     
     for (int i = 0 ; i<5; i++)
     {  
     Student student1;               //making copies of student1 
     
-    group.push_back(student1);          //some weird push of student1 copies to the back of the 'list' called group
+    group.push_back(student1);          //some weird push of student1 copies to the back of the 'list' called group?
     }
-    for(auto Z: group )Z.output();          //auto output for every member of the group
-    
-    Student student1;
-    Student student2;
-    Student student3;
+    for(auto Z: group )Z.output();          //auto output for every member of the group?
+    */
+   // Student student1;
+    //Student student2;
+    //Student student3;
     Student student4;
+    //Student student5;
 
-    student2=student1;
-    student3=student1;
+    //student2=student1;
+    //student3=student1;
     student4.firstName = "Alice";
     student4.lastName = "Wonderland";           //testing intended constructor with the output operator change
-    student4.grade={5,6,2,8,6,2,9,10,6};
-    student4.exam=7;
+    student4.grade={5,6,2,8,2,6,9,10,6};
+    student4.med();
+    student4.exam=4;
     student4.average=false;
     cout<<student4;
-    }
+    
+   // std::cin>>student5;
+    //cout<<student5;
     return 0;
-}
+    }
+    
