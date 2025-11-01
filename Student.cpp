@@ -107,7 +107,7 @@ Student::Student()
             {
             std::cout<<"Input name manually (1) or random (2)\n";
             int choice;
-            choice==0;
+            choice=0;
             std::cin>>choice;
             if (choice==1)
                 {
@@ -122,12 +122,12 @@ Student::Student()
                 s.lastName = "Random";
                 }
             std::cout<<"Generate grades manually (1) or randomly(2)? \n";
-            choice==0;
+            choice=0;
             std::cin>>choice;
             if (choice==1)
                 {
                     std::cout<<"If the number of grades is known (1) if not (2)\n";
-                    choice==0;
+                    choice=0;
                     std::cin>>choice;
                     if (choice==1)
                         {
@@ -157,7 +157,7 @@ Student::Student()
 
 
                 std::cout<<"Generate a certain number of grades randomly (1) or keep the number random as well(2)?\n";
-                choice==0;
+                choice=0;
                 std::cin>>choice;
                 if(choice==1)
                     {
@@ -179,7 +179,7 @@ Student::Student()
                 }
 
                 std::cout<<"Would you like to input exam grade manually(1) or generate a random grade(2)?\n";
-                choice==0;
+                choice=0;
                 std::cin>>choice;
                 if (choice==1) std::cin>>s.exam;
                 else {
@@ -439,7 +439,7 @@ Student::Student()
         std::cout<<"e.g. Final grade < 5.0 - weak students, Final grade => 5.0 -strong students\n";
         int choice=0;
         std::cin>>choice;
-        //auto start = high_resolution_clock::now();  // start timer
+        auto start = high_resolution_clock::now();  // start timer
 
 
         std::vector<Student> weak, strong;
@@ -455,9 +455,9 @@ Student::Student()
                     weak.push_back(s);
                     else strong.push_back(s);
                 }
-                //auto end = high_resolution_clock::now();    // stop timer
-                //auto duration = duration_cast<milliseconds>(end - start);
-                //std::cout << "Student Sorting Execution time: " << duration.count() << " ms\n";
+                auto end = high_resolution_clock::now();    // stop timer
+                auto duration = duration_cast<milliseconds>(end - start);
+                std::cout << "Student Sorting Execution time: " << duration.count() << " ms\n";
 
 
                 if (!fileWeak.is_open() || !fileStrong.is_open())
@@ -470,7 +470,7 @@ Student::Student()
                 fileWeak  << std::string(50, '-') << std::endl;
                 fileStrong << std::left << std::setw(15) << "First Name"<< std::setw(15) << "Last Name"<< std::right << std::setw(10) << "Final"<<std::right << std::setw(10) << "Median"<< std::endl;
                 fileStrong  << std::string(50, '-') << std::endl;
-                auto start = high_resolution_clock::now();  // start timer
+                //auto start = high_resolution_clock::now();  // start timer
                 for ( auto& s : weak)
                 {
                     fileWeak << std::left << std::setw(15) << s.firstName << std::setw(15) << s.lastName<< std::right << std::setw(10) << std::fixed << std::setprecision(2) << s.finalResult
@@ -481,9 +481,9 @@ Student::Student()
                         fileStrong << std::left << std::setw(15) << s.firstName << std::setw(15) << s.lastName<< std::right << std::setw(10) << std::fixed << std::setprecision(2) << s.finalResult
                         <<std::right << std::setw(10) << std::fixed << std::setprecision(2) <<s.medianResult <<std::endl;
                 }
-                auto end = high_resolution_clock::now();    // stop timer
-                auto duration = duration_cast<milliseconds>(end - start);
-                std::cout << "Creating File Execution time: " << duration.count() << " ms\n";
+                //auto end = high_resolution_clock::now();    // stop timer
+                //auto duration = duration_cast<milliseconds>(end - start);
+                //std::cout << "Creating File Execution time: " << duration.count() << " ms\n";
             }
 
 

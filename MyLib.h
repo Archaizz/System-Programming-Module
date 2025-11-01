@@ -9,6 +9,7 @@
 #include <random>
 #include <algorithm>
 #include <fstream>
+#include <sstream>
 
 
 using std::cout;

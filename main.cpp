@@ -3,11 +3,11 @@
 
 
  using namespace std::chrono;
-    void manualInput();
-    void generateRandomStudentInfo();
-    void readFromFile();
-    void generateRandomFile();
-    void generateRandomFileMenu();
+    //void manualInput();
+    //void generateRandomStudentInfo();
+    //void readFromFile();
+    //void generateRandomFile();
+    //void generateRandomFileMenu();
 
 
 int main()
@@ -67,7 +67,7 @@ int main()
     << std::right << std::setw(10) << "Final"<<std::right << std::setw(10) << "Median"<< std::endl;
     std::cout << std::string(50, '-') << std::endl;
 
-        for ( auto& s : students)
+        for ( auto& s : studentsVector)
         s.output();
     return 0;
 }
